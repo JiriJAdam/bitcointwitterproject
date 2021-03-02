@@ -36,7 +36,7 @@ class Post extends Component {
                 />
                 <div>
                     <h3 className={classes.login}>
-                        <Link to={`/profile/${post.user.id}`>{post.user.login}</Link>
+                        <Link to={`/profile/${post.user.id}`}>{post.user.login}</Link>
                         <span className={classes.time}>{(new Date(post.createdAt)).toLocaleString()}</span>
                     </h3>
                     {post.text}
@@ -46,4 +46,4 @@ class Post extends Component {
     }
 }
 
-export default withStyle(styles)(Post)
+export default withStyles(styles)(Post)

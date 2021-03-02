@@ -1,31 +1,25 @@
 import {
-    ADD_POST,
-    LOADING_POSTS,
-    GET_POSTS
+    LOAD_PROFILE,
+    GET_PROFILE
 } from '../constants'
 
 const initialState = {
-    list: null,
-    loading: false 
+    loading: false,
+    user: null
 }
 
 export default function (state = initialState, action) {
-    switch (action.type) {
-        case ADD_POST:
-            return {
-                ...state,
-                list: [action.payload, ...state.list]
-            }
-        case LOADING_POSTS:
+    switch(action.type) {
+        case LOAD_PROFILE:
             return {
                 ...state,
                 loading: true
             }
-        case GET_POSTS:
+        case GET_PROFILE:
             return {
                 ...state,
                 loading: false,
-                list: action.payload
+                user: action.payload
             }
         default:
             return state

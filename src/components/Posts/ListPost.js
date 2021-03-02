@@ -3,6 +3,7 @@ import AddPost from './AddPost'
 import { connect } from 'react-redux'
 import { getPosts } from '../../actions/postActions'
 import LoadingPosts from './LoadingPosts'
+import Post from './Post'
 
 class ListPost extends Component {
     componentDidMount() {
