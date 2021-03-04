@@ -126,7 +126,19 @@ router.route('/unfollow')
             })
             .catch(err => console.log(err))
         }
-    )
+)
+
+router.route('/search')
+        .post((req, res) => {
+            User.findOne({
+                $or: [
+                    {email: req.body.text},
+                    {login: req.body.text}
+                ]
+            })
+            .then(user => res.json({ userId: user._id }))
+            .catch(err => res.status(404).json({ msg: 'Satoshi not found'}))
+})
 
 router.route('/:id')
     .get((req, res) => {
