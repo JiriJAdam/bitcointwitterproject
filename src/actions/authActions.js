@@ -1,6 +1,7 @@
-import axios from 'axios'
-import { GET_ERRORS, SET_CURRENT_USER } from '../constants'
 import setAuthHeader from '../utils/setAuthHeader'
+import { GET_ERRORS, SET_CURRENT_USER } from '../constants'
+import axios from 'axios';
+
 
 export const loginUser = (userData) => dispatch => {
     axios.post('http://localhost:5000/api/users/login', userData)

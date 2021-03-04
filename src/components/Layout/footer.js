@@ -9,7 +9,7 @@ const styles = {
     }
 }
 
-const Footer = () => (
+const Footer = (classes) => (
     <div className={classes.root}>
         <MadeWithLove 
             by="Jiri Adam Jr"

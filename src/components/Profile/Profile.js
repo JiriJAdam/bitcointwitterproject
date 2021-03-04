@@ -5,7 +5,8 @@ import {
     getPostsByUserId,
     getUserProfile,
     followUser,
-    unfollowUser
+    unfollowUser,
+    refreshUserProfile
 } from '../../actions/profileActions'
 import Post from '../Posts/Post'
 import LoadingPosts from '../Posts/LoadingPosts'
@@ -55,10 +56,24 @@ const styles = {
 }
 
 class Profile extends Component {
+    constructor (props) {
+        super(props)
+
+        this.handleFollow = this.handleFollow.bind(this)
+        this.handleUnfollow = this.handleUnfollow.bind(this)
+    }
 
     componentDidMount() {
         this.props.getPostsByUserId(this.props.match.params.userId)
         this.props.getUserProfile(this.props.match.params.userId)
+    }
+
+    componentDidUpdate(prevProps) {
+       if (this.props.isAuthenticated) {
+           if (prevProps.user && prevProps.user.following !== this.props.user.following) {
+               this.props.refreshUserProfile(this.props.match.params.userId)
+           }
+       }
     }
 
     handleFollow (){
@@ -81,7 +96,11 @@ class Profile extends Component {
         } = this.props
         let followBtns;
         if (auth.isAuthenticated) {
-            if (user.following.indexOf(this.props.match.params.userId) === -1) {
+            if (
+                user &&
+                user.following &&
+                user.following.indexOf(this.props.match.params.userId) === -1
+            ) {
                 followBtns = (<div className={classes.btnBlock}>
                     <Button variant="outlined" className={classes.btnFollow} onClick={this.handleFollow}>
                         Follow
@@ -145,5 +164,6 @@ export default connect(mapStateToProps,
         getPostsByUserId, 
         getUserProfile, 
         followUser, 
-        unfollowUser 
+        unfollowUser,
+        refreshUserProfile
     })(withStyles(styles)(Profile))
